@@ -1,0 +1,16 @@
+#filter-list{
+    position: relative;
+
+}
+
+#filter-ul{
+    position: absolute;
+    z-index: 10;
+
+}
+
+#filter-ul li{
+    background-color: aliceblue;
+    color: black;
+    display: none;
+}
