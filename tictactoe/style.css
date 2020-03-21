@@ -1,0 +1,161 @@
+*, *::after, *::before{
+    box-sizing: border-box;
+}
+
+:root{
+    --cell-size: 100px; /*varijabla se stavlja u :root element*/
+    --xo-size: calc(var(--cell-size)*0.9); /*cal, koristimo za rad sa varijablama*/ 
+}
+
+body{
+    margin: 0;
+}
+
+.board{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    /* grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 100px 100px 100px; */
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(3,auto);
+}
+
+.cell{
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border: 1px black solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+}
+
+
+.cell.x,
+.cell.o{
+    cursor: not-allowed;
+}
+
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3){
+    border-top: none;
+}
+
+.cell:nth-child(3n+1){
+    border-left: none;
+}
+
+.cell:nth-child(3n+3){
+    border-right: none;
+
+}
+
+.cell:last-child,
+.cell:nth-child(7),
+.cell:nth-child(8){
+    border-bottom: none;
+}
+
+.cell.x::before,
+.cell.x::after,
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after{
+    content: "";
+    height: var(--xo-size);
+    width: calc(var(--xo-size)*0.15);
+    background-color: black;
+    position: absolute;
+}
+
+
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after{
+    background-color: gray;
+}
+
+
+.cell.x::before,
+.board.x .cell:not(.x):not(.o):hover::before{
+    transform: rotate(45deg);
+}
+
+.cell.x::after,
+.board.x .cell:not(.x):not(.o):hover::after{
+    transform: rotate(-45deg);
+}
+
+.cell.o::before,
+.cell.o::after,
+.board.o .cell:not(.x):not(.o):hover::before,
+.board.o .cell:not(.x):not(.o):hover::after{
+    content: "";
+    border-radius: 50%;
+    position: absolute;
+}
+
+.cell.o::before{
+    background: black;
+}
+
+.cell.o::after{
+    background: white;
+}
+
+.cell.o::before,
+.board.o .cell:not(.x):not(.o):hover::before{
+    height: var(--xo-size);
+    width: var(--xo-size);
+    background: black;
+}
+
+
+.cell.o::after,
+.board.o .cell:not(.x):not(.o):hover::after{
+    height: calc(var(--xo-size)*0.7);
+    width: calc(var(--xo-size)*0.7);
+    background: white;
+}
+
+.board.o .cell:not(.x):not(.o):hover::before{
+    background-color: gray;
+}
+
+.winning-message{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #020000e7;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 5rem;
+    flex-direction: column;
+}
+
+.winning-message button{
+    font-size: 3rem;
+    background: rgba(255, 255, 255, 0);
+    color: white;
+    border: white 2px solid;
+    padding: 0.25em 0.5em;
+    cursor: pointer;
+}
+
+.winning-message button:hover{
+    background: white;
+    border-color: black;
+    color: black;
+}
+
+.winning-message.show{
+    display: flex;
+}
