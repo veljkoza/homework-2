@@ -17,14 +17,30 @@ noOfCharacters.setAttribute("maxlength", 2);
 validateNumberInput(noOfCharacters);
 checkForPalindrom();
 
+function gameBeginning(){
+  restartEverything();
+  endGame.classList.add(DISPLAY_NONE);
+  console.log(startButton.textContent);
+  
+  startElement.style.transition="all 2s ease-in-out";
+  startElement.style.top = "0px";
+  startElement.style.bottom = "0px";
+}
+
 function gameStart() {
   startElement.style.transition = "all 2s ease-in-out";
   startElement.style.top = "-500px";
   startElement.style.bottom = "2000px";
-
   createCells();
 
   slideInCells();
+}
+
+const endText = endGame.firstElementChild;
+
+function restartEverything(){
+  cells.innerHTML="";
+  endText.innerHTML="";
 }
 
 function createCells() {
@@ -36,6 +52,8 @@ function createCells() {
   }
   cells.appendChild(createPlusCell());
 }
+
+
 
 function checkForPalindrom() {
   document.addEventListener("keyup", function(e) {
@@ -63,18 +81,24 @@ function isItPalindrom(word) {
   console.log(secondPart);
   let reversedString = reverseString(secondPart);
   if (firstPart == reversedString) {
-    showEndScreen(firstPart, reversedString, midChar);
+    showEndScreen(firstPart, secondPart, midChar);
     return true;
   }
   return false;
 }
 
-function showEndScreen(firstPart, reversedString, midChar) {
+function showEndScreen(firstPart, secondPart, midChar) {
   endGame.classList.remove("none");
   let element = document.createElement("h2");
-  let text = firstPart + " " + midChar + " " + reversedString;
+  let text = firstPart + " " + midChar + " " + secondPart + " je palindrom!";
   element.append(text);
-  document.getElementById("endText").appendChild(element);
+  endText.appendChild(element);
+  
+  let restartButton = document.getElementById("endButton")
+
+  restartButton.addEventListener('click',gameBeginning);
+  console.log(restartButton);
+
 }
 
 function reverseString(word) {
@@ -88,11 +112,7 @@ function createCell() {
   let cell = document.createElement("div");
   cell.classList.add("cell");
 
-  let xButton = document.createElement("button");
-  let xNode = document.createTextNode("x");
-  xButton.appendChild(xNode);
-  xButton.classList.add("cellDelButton");
-  xButton.addEventListener("click", removeCell);
+  let xButton = createXButton();
 
   let inputInCell = document.createElement("input");
   inputInCell.setAttribute("type", "text");
@@ -105,6 +125,16 @@ function createCell() {
   cell.appendChild(inputInCell);
 
   return cell;
+}
+
+function createXButton(){
+  let xButton = document.createElement("button");
+  let xNode = document.createTextNode("x");
+  xButton.appendChild(xNode);
+  xButton.classList.add("cellDelButton");
+  xButton.addEventListener("click", removeCell);
+  
+  return xButton;
 }
 
 function removeCell(e) {
