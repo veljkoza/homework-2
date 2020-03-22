@@ -6,6 +6,8 @@ const form = document.getElementById("addForm");
 // id - items
 
 const itemList = document.getElementById("items");
+const itemsToBeSaved = [];
+
 
 const filterList = document.getElementById("filter-ul");
 
@@ -19,7 +21,57 @@ itemList.addEventListener("click", removeItem);
 let filter = document.getElementById("filter");
 filter.addEventListener("keyup", filterItems);
 filter.addEventListener("keyup", check);
+filter.addEventListener("keyup", function(e) {
+  switch (e.key) {
+    case "ArrowUp":
+      filterList.lastElementChild.focus();
+      navigateThroughList(e);
+      break;
 
+    case "ArrowDown":
+      filterList.firstElementChild.focus();
+      navigateThroughList(e);
+      break;
+  }
+});
+
+
+
+function navigateThroughList(e) {
+  let firstItem = filterList.firstElementChild;
+  document.addEventListener("keyup", function(e) {
+    switch (e.key) {
+      case "ArrowUp":
+        if (document.activeElement == (filter || firstItem)) {
+          filterList.lastElementChild.focus();
+        } else {
+          if (document.activeElement.previousElementSibling == null) {
+            filterList.lastElementChild.focus();
+            console.log("test1")
+          } else {
+            console.log("test2")
+            console.log(document.activeElement.previousElementSibling)
+            document.activeElement.previousElementSibling.focus();
+          }
+        }
+        break;
+
+      case "ArrowDown":
+        // if (document.activeElement == filter) {
+        //   firstItem.focus();
+        // }else
+        if (document.activeElement === filterList.lastElementChild) {
+          firstItem.focus();
+        } else {
+          if (document.activeElement.nextElementSibling == null) {
+            firstItem.focus();
+          }
+          document.activeElement.nextElementSibling.focus();
+        }
+        break;
+    }
+  });
+}
 
 let items = document.getElementsByClassName("list-group-item");
 
@@ -29,29 +81,41 @@ Array.from(items).forEach(function(item) {
   let text = item.textContent.substring(0, item.textContent.length - 1);
   let node = document.createTextNode(text);
   newItem.appendChild(node);
-  filterList.appendChild(newItem);
+  newItem.addEventListener("click", searchSelectedItem);
 
-  newItem.addEventListener("click",searchSelectedItem);
+  newItem.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+      console.log(e.key);
+      searchSelectedItem(e);
+    }
+  });
+
+  addTabIndex(newItem);
+  filterList.appendChild(newItem);
 });
 
-function searchSelectedItem(e){
-    filter.value = e.target.textContent;
-    filterItems(e.target.textContent);
+function addTabIndex(listItem) {
+  listItem.setAttribute("tabindex", 1);
 }
 
-function check(e){
-    if(e.target.value !== ""){
-        filterList.style.display="block";
+function searchSelectedItem(e) {
+  filter.value = e.target.textContent;
+  filterItems(e.target.textContent);
+  filterList.style.display = "none";
+}
 
-        filterListQuery(e.target.value);
-    }else{
-        filterList.style.display="none";
-    }
+function check(e) {
+  if (e.target.value !== "") {
+    filterList.style.display = "block";
+
+    filterListQuery(e.target.value.toLowerCase());
+  } else {
+    filterList.style.display = "none";
+  }
 }
 
 function filterListQuery(input) {
   let text = input;
-  text.toLowerCase();
 
   Array.from(filterList.children).forEach(function(item) {
     let itemText = item.textContent;
@@ -89,9 +153,19 @@ function addItem(event) {
   let node = document.createTextNode(newItem);
   newLiItemElement.appendChild(node);
 
-  let node2 = document.createTextNode(newItem)
+
+
+  let node2 = document.createTextNode(newItem);
   let filterListItem = document.createElement("li");
   filterListItem.appendChild(node2);
+  filterListItem.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+      console.log(e.key);
+      searchSelectedItem(e);
+    }
+  });
+  filterListItem.addEventListener("click", searchSelectedItem);
+  addTabIndex(filterListItem);
   newLiItemElement.classList.add("list-group-item");
 
   // Nakon toga li itemu trebamo dodati klasu
@@ -127,6 +201,9 @@ function addItem(event) {
 
   itemList.appendChild(newLiItemElement);
   filterList.appendChild(filterListItem);
+
+  localStorage.setItem('items',JSON.stringify(itemList));
+
 }
 
 // 2. Brisanje elemenata iz liste

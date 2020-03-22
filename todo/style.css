@@ -1,7 +1,4 @@
-#filter-list{
-    position: relative;
 
-}
 
 #filter-ul{
     position: absolute;
@@ -13,4 +10,9 @@
     background-color: aliceblue;
     color: black;
     display: none;
+}
+
+#filter-ul li:focus{
+    background-color: black;
+    color: white;
 }

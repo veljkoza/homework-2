@@ -1,0 +1,154 @@
+*,*::after,*::before{
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 10px;
+    background: url("bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow-y: hidden;
+    font-family: 'Slabo 27px', serif;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.start{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #080101b6;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.endGame{ 
+    display: flex;
+    position: fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #080101b6;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.endGame.none{
+    display: none;
+}
+
+
+
+.startText,
+.endText{
+    font-size: 8rem;
+}
+
+#noOfCharacterInput{
+    text-align: center;
+    height: 20%;
+    width: 20%;
+    background: transparent;
+    border: none;
+    border-bottom: 5px solid white;
+    color: white;   
+    font-size: 15rem;
+    align-items: center;
+    border-radius: 3%;
+    margin-bottom: 3rem;
+}
+
+#startButton{
+    cursor: pointer;
+    color: white;
+    background: #0000005d;
+    border: 5px solid white;
+    border-radius: 10%;
+    font-size: 5rem;
+    padding: 1rem 3rem;
+}
+
+#startButton:hover{
+    color: black;
+    background: #5e56565d;
+    border: 5px solid black;
+}
+
+.cells{
+    display: flex;
+    min-height: 250vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.cell,
+.cellPlus{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 7rem;
+    height: 7rem;
+    padding: 1rem;
+    padding-top: 0.1rem;
+    border: white 3px solid;
+    background: #0000008a;
+    margin: 0.5rem;
+}
+
+.cellPlus.plus{
+    padding-top: 1.3rem;
+}
+
+
+
+.cell:hover,
+.cellPlus:hover{
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.349);
+}
+
+.cellPlus.plus::before,
+.cellPlus.plus::after{
+    content: "";
+    height: 2rem;
+    width: 0.5rem;
+    background-color: white;
+    position: absolute;
+}
+
+.cellPlus.plus::before{
+    transform: rotate(-90deg);
+}
+
+
+.cellDelButton{
+    justify-self: end;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+
+.cellInput{
+    text-align: center;
+    height: 70%;
+    width: 70%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid white;
+    color: white;
+    font-size: 3rem;
+    align-items: center;
+    text-transform: uppercase;
+}
+
