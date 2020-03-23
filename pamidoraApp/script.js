@@ -3,11 +3,24 @@ const startBtn = document.getElementById("startBtn");
 const stopBtn = document.getElementById("stopBtn");
 const resetBtn = document.getElementById("resetBtn");
 
+const pomodoro = document.querySelector("#pomodoro");
+const shortBreak = document.querySelector("#stopBtn");
+const longBreak = document.querySelector("#resetBtn");
+
+const mainClock;
+
+pomodoro.addEventListener("click",function(){
+let mainClock = CLOCK(25,timer);
+})
+
+
+
 const CLOCK = function(startingMinutes, element) {
   let time = startingMinutes * 60;
   let interval;
 
   function startClock() {
+    stopClock();
     interval = setInterval(updateCountdown, 1000);
   }
 
@@ -39,13 +52,14 @@ const CLOCK = function(startingMinutes, element) {
   }
 };
 
-let mainClock = CLOCK(25,timer);
 
 startBtn.addEventListener("click",function(){
+    startBtn.disabled = true;
     mainClock.start();
 });
 
 stopBtn.addEventListener("click",function(){
+    startBtn.disabled = false;
     mainClock.stop();
 })
 
