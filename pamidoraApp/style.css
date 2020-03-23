@@ -1,0 +1,80 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-size: 10px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.pomodoro-container{
+    width: 66%;
+    height: 15rem;
+    margin: auto;
+    margin-top: 15%;
+}
+
+.breaks{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+
+.break{
+    background-color: turquoise;
+    color: white;
+    border: 1px solid black;
+    text-align: center;
+    width: 100%;
+    padding: 0.2rem 0.5rem;
+    cursor: pointer;
+}
+
+.break:hover{
+    background-color: teal;
+}
+
+.timer{
+    background-image: url("pamidora.png") contain;
+    display: flex;
+    text-align: center;
+    height: 50%;
+    font-size: 5rem;
+    font-weight: 700;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttons{
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0 auto;
+}
+
+#startBtn,
+#stopBtn,
+#resetBtn{
+    color: white;
+    border: none;
+    padding:0.5rem 1rem;
+    border: 1px solid black;
+
+}
+
+#startBtn{
+    background-color: green;
+}
+
+#stopBtn{
+    background-color: red;
+}
+
+#resetBtn{
+    background-color: gray;
+    color: black;
+}
