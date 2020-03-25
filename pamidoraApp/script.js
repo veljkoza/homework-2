@@ -8,7 +8,8 @@ const pomodoro = document.querySelector("#pomodoro");
 const shortBreak = document.querySelector("#shortBreak");
 const longBreak = document.querySelector("#longBreak");
 
-const audio = document.getElementById("#audio")
+const audio = document.getElementById("audio")
+console.log(audio)
 
 let currentTab;
 
@@ -47,18 +48,25 @@ const CLOCK = function(element) {
   }
 
   function updateCountdown() {
-    console.log("mrs");
 
     const minutes = Math.floor(time / 60);
     let seconds = time % 60;
-    element.innerText = `${minutes}:${seconds}`;
+    let showMinutes = minutes + "";
+    let showSeconds = seconds + "";
+    if(minutes<10){
+      showMinutes="0"+ showMinutes;
+    }
+    if(seconds<10){
+      showSeconds="0"+showSeconds;
+    }
+    element.innerText = `${showMinutes}:${showSeconds}`;
     console.log(element.innerText);
     time--;
     if(time === 0){
-      audio.play()
+      audio.play();
     }
     time = time < 0 ? 0 : time;
-    document.title = `${minutes}:${seconds}` + currentTab;
+    document.title = `${showMinutes}:${showSeconds}` + currentTab;
   }
 
   return {
